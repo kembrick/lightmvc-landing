@@ -1,0 +1,55 @@
+@import "variables";
+
+.container {
+  max-width: $screen-md-max;
+}
+.logo {
+  width: 40%;
+  @media only screen and (max-device-width : $screen-sm-max) {
+    width: 65%;
+  }
+  height: auto;
+}
+.fadeIn {
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-webkit-keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.btn-primary {
+  border-color: white;
+  font-size: 1.4rem;
+  padding: 1rem 0;
+  margin: 1.2rem auto;
+  background-color: $color-primary!important;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $color-secondary!important;
+    border-color: $color-secondary!important;
+    color: White;
+  }
+  .primary:not(:disabled):not(.disabled):active {
+    color: $color-primary!important;
+  }
+  @media only screen and (max-device-width : $screen-sm-max) {
+    margin: 0.8rem auto;
+    font-size: 1.0rem;
+    font-weight: 300;
+    padding: 0.6rem 0;
+  }
+}
+.btn-block {
+  display: block;
+  width: 100%;
+}
+.shadow {
+  box-shadow: 0 .2rem 0.3rem rgba(0,0,0,.15) !important;
+}
+

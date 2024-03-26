@@ -1,0 +1,10 @@
+AddDefaultCharset utf-8
+
+RewriteEngine On
+Options +FollowSymlinks
+
+RewriteRule "^(.*/)?\.git/" - [F,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php [L,QSA]

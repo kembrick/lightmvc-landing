@@ -1,0 +1,48 @@
+$screen-xxs-max: 374px;
+$screen-xs-min: 375px;
+$screen-xs-max: 575px;
+$screen-sm-min: 576px;
+$screen-sm-max: 767px;
+$screen-md-min: 768px;
+$screen-md-max: 991px;
+$screen-lg-min: 992px;
+$screen-ipad-max: 1024px;
+$screen-lg-max: 1199px;
+$screen-xl-min: 1200px;
+
+$blue: #0072CE;
+$yellow: #FFA500;
+$red: #FF3A44;
+$cyan: #53EBDF;
+$primary: $cyan;
+$info: $blue;
+$green: #15CF74;
+$gray-900: #2A2A2A;
+$black: #191919;
+$secondary: $gray-900;
+$nav-tabs-link-active-color: $gray-900;
+
+$color-primary: $primary;
+$color-secondary: $secondary;
+$color-third: $black;
+$color-ext: #6dabe4;
+$color-link: #2A2A2A;
+$color-link-hover: $primary;
+$color-font: $black;
+$color-nav-bg: #f9fafa;
+
+$color-dark-gray: #434344;
+$color-gray: #bdbcbc;
+$color-light-gray: #d9d9d9;
+$color-extra-light-gray: #f7fbff;
+$color-jumbo: #f1f4f7;
+$color-info: $color-ext;
+$color-error: #a94442;
+$color-disabled: lighten($color-primary, 35%);
+$color-bread: lighten($color-light-gray, 25%);
+$color-glow: $color-gray;
+
+$font-navigation: 'Montserrat', sans-serif;
+$font-condenced: 'PT Sans Narrow', sans-serif;
+$font-main: 'Nunito', sans-serif;
+$font-icon: 'fontello', sans-serif;
