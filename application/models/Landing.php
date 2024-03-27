@@ -22,4 +22,9 @@ class Landing extends Model
         return $this->db->row('SELECT * FROM front_slider ORDER BY ord');
     }
 
+    public function getSettings(): array
+    {
+        return $this->db->pairColumn('SELECT sysname, val FROM front_settings');
+    }
+
 }
