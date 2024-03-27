@@ -199,7 +199,6 @@ button:focus {
     padding: .5rem .75rem;
   }
 }
-
 div.dataTables_length, div.dataTables_filter, div.dataTables_info {
   label {
     color: $color-gray-semidark;
@@ -255,6 +254,9 @@ div.dataTables_info {
     tr {
       border-color: transparent;
     }
+  }
+  .dt-type-numeric:not(.text-end) {
+    text-align: left!important; // предотвращаем выравнивание изображений по правому краю
   }
 }
 

@@ -6,58 +6,6 @@
 
 return [
 
-    'infoblocks' => [
-        'navigation' => 'Инфоблоки',
-        'table' => 'th-list',
-        'icon' => 'doc-text',
-        'addOnly' => true, // удаление записей запрещено
-        'view' => [
-            'fields' => [
-                'title' => [
-                    'title' => 'Название'
-                ],
-                'pagename' => [
-                    'title' => 'ЧПУ'
-                ],
-                'visible' => [
-                    'title' => 'Выводить',
-                    'type' => 'checkbox',
-                ]
-            ],
-            'fieldnames' => [
-                'Название', 'ЧПУ', 'Отображать'
-            ],
-            'fieldstype' => [ // тип полей задается, только если отличаются от дефолтных (text)
-                'visible' => 'check'
-            ],
-            'order' => 'ord',
-        ],
-        'edit' => [
-            'fields' => [
-                'title' => [
-                    'title' => 'Название'
-                ],
-                'pagename' => [
-                    'title' => 'ЧПУ страницы (уникальный идентификатор, только латиница в одно слово)',
-                    'disabled' => true, // запрещено последующее редактирование
-                ],
-                'content' => [
-                    'title' => 'Текст',
-                    'type' => 'tiny',
-                ],
-                'ord' => [
-                    'title' => 'Приоритет (чем меньше значение, тем раньше выводится)',
-                    'type' => 'number',
-                    'default' => '1'
-                ],
-                'visible' => [
-                    'title' => 'Выводить',
-                    'type' => 'checkbox',
-                    'default' => '1'
-                ],
-            ],
-        ]
-    ],
 
     'slider' => [
         'navigation' => 'Слайдер',
@@ -90,8 +38,88 @@ return [
                 'img_lnd' => [
                     'title' => 'Изображение',
                     'type' => 'image',
-                    'resize' => [400, 1000], // две версии изображения - портрет и альбом
-                    'crop' => [600, 500],
+                    'resize' => [1200, 400], // две версии изображения - альбом и портрет (для адаптивной карусели)
+                    'crop' => [675, 650],
+                ],
+            ],
+        ]
+    ],
+
+    'buttons' => [
+        'navigation' => 'Кнопки',
+        'table' => 'front_buttons',
+        'icon' => 'menu',
+        'addOnly' => true, // удаление записей запрещено
+        'view' => [
+            'fields' => [
+                'title' => [
+                    'title' => 'Текст'
+                ],
+                'url' => [
+                    'title' => 'Ссылка'
+                ],
+            ],
+            'order' => 'ord',
+        ],
+        'edit' => [
+            'fields' => [
+                'title' => [
+                    'title' => 'Текст'
+                ],
+                'url' => [
+                    'title' => 'Ссылка',
+                ],
+                'ord' => [
+                    'title' => 'Приоритет (чем меньше значение, тем раньше выводится)',
+                    'type' => 'number',
+                    'default' => '1'
+                ],
+            ],
+        ]
+    ],
+
+    'infoblocks' => [
+        'navigation' => 'Инфоблоки',
+        'table' => 'front_infoblocks',
+        'icon' => 'tasks',
+        'addOnly' => true, // удаление записей запрещено
+        'view' => [
+            'fields' => [
+                'title' => [
+                    'title' => 'Название'
+                ],
+                'sysname' => [
+                    'title' => 'Системное имя'
+                ],
+                'visible' => [
+                    'title' => 'Выводить',
+                    'type' => 'checkbox',
+                ]
+            ],
+            'order' => 'ord',
+        ],
+        'edit' => [
+            'fields' => [
+                'title' => [
+                    'title' => 'Название'
+                ],
+                'sysname' => [
+                    'title' => 'Системное имя',
+                    'disabled' => true, // запрещено последующее редактирование
+                ],
+                'content' => [
+                    'title' => 'Текст',
+                    'type' => 'tiny',
+                ],
+                'img' => [
+                    'title' => 'Изображение',
+                    'type' => 'image',
+                    'resize' => [800],
+                ],
+                'visible' => [
+                    'title' => 'Выводить',
+                    'type' => 'checkbox',
+                    'default' => '1'
                 ],
             ],
         ]
@@ -108,7 +136,7 @@ return [
                     'title' => 'Название'
                 ],
                 'sysname' => [
-                    'title' => 'Алиас'
+                    'title' => 'Системное имя'
                 ],
                 'val' => [
                     'title' => 'Значение'

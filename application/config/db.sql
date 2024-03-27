@@ -37,6 +37,13 @@ CREATE TABLE `front_settings` (
                             `locked` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `front_buttons` (
+                                 `id` int UNSIGNED NOT NULL,
+                                 `title` varchar(150) DEFAULT NULL,
+                                 `url` varchar(255) DEFAULT NULL,
+                                 `ord` int DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 ALTER TABLE `admin_users`
     ADD PRIMARY KEY (`id`),
@@ -53,6 +60,9 @@ ALTER TABLE `front_settings`
     ADD PRIMARY KEY (`id`),
     ADD UNIQUE KEY `name` (`sysname`);
 
+ALTER TABLE `front_buttons`
+    ADD PRIMARY KEY (`id`);
+
 ALTER TABLE `admin_users`
     MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
@@ -64,3 +74,6 @@ ALTER TABLE `front_slider`
 
 ALTER TABLE `front_settings`
     MODIFY `id` smallint NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `front_buttons`
+    MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;

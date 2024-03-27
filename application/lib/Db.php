@@ -55,6 +55,11 @@ class Db {
 		return $result->fetchColumn();
     }
 
+    public function fetchUnique($sql, $params = [])
+    {
+        return $this->query($sql, $params)->fetchAll(PDO::FETCH_UNIQUE);
+    }
+
 	public function lastInsertId()
     {
 		return $this->db->lastInsertId();

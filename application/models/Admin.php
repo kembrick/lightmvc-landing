@@ -24,7 +24,6 @@ class Admin extends Model
     {
         $configSection = $this->config[$section];
         if ($configSection['view']['tree']) {
-            // implode(',', array_keys($configSection['view']['fields']))
             $fields = array_keys($configSection['view']['fields']);
             $mainField = $fields[0];
             $fields = array_slice($fields, 1);
@@ -142,7 +141,6 @@ class Admin extends Model
                         $this->db->query('INSERT INTO `' . $fields[$field]['targetTable'] . '` (group_id, name) VALUES ("' . $id . '", "' . $extImage . '")');
                 continue;
             }
-            //$set .= '`' . $field . '`= "' . $data[$field] . '",';
             $set .= "`$field` = :$field,";
             $fieldSql .= "`$field`,";
             $values .= ":$field,";

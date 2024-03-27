@@ -38,7 +38,7 @@ unset($_SESSION['msg']);
                     $linkEdit = '/' . $this->baseUrl . '/edit/' . $this->section . '/' . $row['id'];
                     $row[$key] = '<a href="' . $linkEdit . '">' . $row[$key] . '</a>';
                 } ?>
-                <td <?= $field['type'] == 'number' ? 'text-right' : '' ?>>
+                <td class="<?= $field['type'] == 'number' ? 'text-right' : '' ?>">
                     <?php
                     switch ($field['type']) {
                         case 'checkbox':

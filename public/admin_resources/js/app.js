@@ -6,7 +6,10 @@ $(function() {
         "order": [],
         "pageLength": 25,
         "columnDefs": [
-            { "orderable": false, "targets": -1 }
+            {
+                "orderable": false,
+                "targets": -1,
+            }
         ],
         "oLanguage": {
             "sLengthMenu": "Отображать по _MENU_ записей",
