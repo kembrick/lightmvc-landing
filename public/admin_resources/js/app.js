@@ -51,7 +51,7 @@ const translit = str => {
         'Ф': 'F', 'Х': 'KH', 'Ц': 'TS', 'Ч': 'Ch','Ш': 'SH',
         'Щ': 'SCH', 'Ы': 'Y', 'Э': 'E', 'Ю': 'U', 'Я': 'YA',
         'Ь': '', 'Ъ': '', 'Й': 'I',
-        ' ': '-'
+        ' ': '-', '"': '', "'": '', '&': '-', '!': '', '?': '',
     }
     return str.split("").map(char => typeof keys[char] === "undefined" ? char : keys[char]).join("");
 }

@@ -228,10 +228,9 @@ class AdminController extends Controller
                 $table = $this->view->config[$this->view->section]['table'];
             }
             if ($files) {
-                $imgPath = $_SERVER['DOCUMENT_ROOT'] . '/public/pictures/main/' . $table . '/';
                 foreach ($files as $fileName)
                     if ($fileName)
-                        $this->deleteImageFiles($imgPath, $fileName);
+                        $this->deleteImageFiles('', $fileName);
             }
             $this->model->deleteRow($table, $this->view->id);
         }

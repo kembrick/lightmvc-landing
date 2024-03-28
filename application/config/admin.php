@@ -2,10 +2,10 @@
 
 /*
  * Конфигурационный файл панели управления сайтом
+ * ver 0.2
  */
 
 return [
-
 
     'slider' => [
         'navigation' => 'Слайдер',
@@ -81,14 +81,14 @@ return [
     'infoblocks' => [
         'navigation' => 'Инфоблоки',
         'table' => 'front_infoblocks',
-        'icon' => 'tasks',
+        'icon' => 'columns',
         'addOnly' => true, // удаление записей запрещено
         'view' => [
             'fields' => [
                 'title' => [
                     'title' => 'Название'
                 ],
-                'sysname' => [
+                'name' => [
                     'title' => 'Системное имя'
                 ],
                 'visible' => [
@@ -103,7 +103,7 @@ return [
                 'title' => [
                     'title' => 'Название'
                 ],
-                'sysname' => [
+                'name' => [
                     'title' => 'Системное имя',
                     'disabled' => true, // запрещено последующее редактирование
                 ],
@@ -130,12 +130,13 @@ return [
         'table' => 'front_settings',
         'icon' => 'cog-alt',
         'addOnly' => true,
+        'nav_break' => true,
         'view' => [
             'fields' => [
                 'title' => [
                     'title' => 'Название'
                 ],
-                'sysname' => [
+                'name' => [
                     'title' => 'Системное имя'
                 ],
                 'val' => [
@@ -148,8 +149,8 @@ return [
                 'title' => [
                     'title' => 'Название',
                 ],
-                'sysname' => [
-                    'title' => 'Алиас',
+                'name' => [
+                    'title' => 'Системное имя',
                     'pattern' => '^[a-zA-Z0-9_\/\-]+$',
                     'required' => true,
                     'disabled' => true,
@@ -158,12 +159,90 @@ return [
                     'title' => 'Значение',
                 ],
             ],
-            'fieldnames' => [
-                'Название', 'Системное имя', 'Контент'
+        ]
+    ],
+
+    'demo' => [
+        'navigation' => 'Демонстрация',
+        'table' => 'front_demo',
+        'icon' => 'sliders',
+        'view' => [
+            'fields' => [
+                'name' => [
+                    'title' => 'Название'
+                ],
+                'pagename' => [
+                    'title' => 'ЧПУ'
+                ],
+                'img' => [
+                    'title' => 'Изображение',
+                    'type'  => 'image',
+                ],
+                'dt' => [
+                    'title' => 'Дата',
+                    'type'  => 'date',
+                ],
+                'visible' => [
+                    'title' => 'Выводить',
+                    'type'  => 'checkbox',
+                ],
             ],
-            'fieldstype' => [
-                'sysname' => 'locked',
-                'val' => 'textarea'
+        ],
+        'edit' => [
+            'fields' => [
+                'name' => [
+                    'title' => 'Название',
+                    'translit' => 'pagename', // автоматическое заполнение указанного текстового поля транслитом, если в нем пусто
+                ],
+                'pagename' => [
+                    'title' => 'ЧПУ (только латиница и разделители: "-" и "_")',
+                    'pattern' => '^[a-zA-Z0-9_\/\-]+$',
+                    'required' => true,
+                    'disabled' => true,
+                ],
+                // group_id и images - фиктивные поля, в основной таблице их реально не существует
+                'group_id' => [
+                    'title' => 'Категория',
+                    'type' => 'multiselect',
+                    'sourceTable' => 'front_settings',
+                    'targetTable' => 'front_demo_groups',
+                ],
+                'img' => [
+                    'title' => 'Основное изображение (дополняется полями до квадрата)',
+                    'type' => 'image',
+                    'resize' => [600],
+                    'fill' => [600]
+                ],
+                'images' => [
+                    'title' => 'Дополнительные изображения (обрезаются до квадрата)',
+                    'type' => 'multiImage',
+                    'targetTable' => 'front_demo_images',
+                    'resize' => [400],
+                    'crop' => [400],
+                ],
+                'content' => [
+                    'title' => 'Описание',
+                    'type' => 'tiny',
+                ],
+                'radio' => [
+                    'title' => 'Опция',
+                    'type' => 'radio', // можно сохранять значение в enum-полях
+                    'radio' => [1 => 'Test1', 2 => 'Test2'],
+                ],
+                'dt' => [
+                    'title' => 'Дата',
+                    'type' => 'date',
+                ],
+                'ord' => [
+                    'title' => 'Приоритет',
+                    'type' => 'number',
+                    'default' => '1'
+                ],
+                'visible' => [
+                    'title' => 'Выводить',
+                    'type' => 'checkbox',
+                    'default' => '1'
+                ],
             ],
         ]
     ],

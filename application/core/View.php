@@ -9,8 +9,6 @@ class View
     public array $route;
     public string $layout = 'default';
     public string $content;
-    public array $menu = [];
-    public array $settings = [];
 
     public function __construct(array $route)
     {

@@ -9,7 +9,7 @@ class Landing extends Model
 
     public function getInfoblocks(): array
     {
-        return $this->db->fetchUnique('SELECT sysname, front_infoblocks.* FROM front_infoblocks');
+        return $this->db->fetchUnique('SELECT name, front_infoblocks.* FROM front_infoblocks');
     }
 
     public function getButtons(): array
@@ -24,7 +24,7 @@ class Landing extends Model
 
     public function getSettings(): array
     {
-        return $this->db->pairColumn('SELECT sysname, val FROM front_settings');
+        return $this->db->pairColumn('SELECT name, val FROM front_settings');
     }
 
 }

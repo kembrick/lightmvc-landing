@@ -95,21 +95,31 @@ class Admin extends Model
         return ['configEdit' => $configSection, 'dataRow' => $dataTable, 'dataSelect' => $dataSelect, 'multiImage' => $multiImage];
     }
 
+    /** Возвращает массив изображений (с полным путем), связанных с данной записью  */
     public function getImageNames(string $section, int $id): array
     {
         $images = [];
         $table = $this->config[$section]['table'];
+        $pathToIntImages = $_SERVER['DOCUMENT_ROOT'] . '/public/pictures/main/' . $table . '/';
         $row = $this->db->row("SELECT * FROM $table WHERE id = :id", ['id' => $id])[0];
         foreach ($this->config[$section]['edit']['fields'] as $key => $field) {
-            if ($field['type'] == 'image' || $field['type'] == 'multiImage')
-                $images[] = $row[$key];
+            if ($field['type'] == 'image')
+                $images[] = $pathToIntImages . $row[$key];
+            elseif ($field['type'] == 'multiImage') {
+                $tableImgs = $field['targetTable'];
+                $pathToExtImages = $_SERVER['DOCUMENT_ROOT'] . '/public/pictures/main/' . $tableImgs . '/';
+                $extImages = $this->db->fullColumn("SELECT name FROM $tableImgs WHERE group_id = :id", ['id' => $id]);
+                $extImages = substr_replace($extImages, $pathToExtImages, 0, 0); // дополняем элементы массива префиксом пути к картинке
+                $images = array_merge($images, $extImages);
+            }
         }
         return $images;
     }
 
     public function getImageName(string $table, int $id): array
     {
-        $images[] = $this->db->column("SELECT name FROM $table WHERE id = :id", ['id' => $id]);
+        $row = $this->db->column("SELECT name FROM $table WHERE id = :id", ['id' => $id]);
+        $images[] = $_SERVER['DOCUMENT_ROOT'] . '/public/pictures/main/' . $table . '/' . $row;
         return $images;
     }
 
@@ -126,21 +136,8 @@ class Admin extends Model
                     continue;
             if ($fields[$field]['type'] == 'checkbox' && $data[$field] == '')
                 $data[$field] = 0;
-            if (($fields[$field]['type'] == 'radio' || $fields[$field]['disabled']) && $data[$field] == '')
+            if ((($fields[$field]['type'] == 'radio' || $fields[$field]['disabled']) && $data[$field] == '') || $fields[$field]['type'] == 'multiselect' || $fields[$field]['type'] == 'multiImage')
                 continue;
-            if ($fields[$field]['type'] == 'multiselect') {
-                if ($id)
-                    $this->db->query('DELETE FROM `' . $fields[$field]['targetTable'] . '` WHERE id = :id', ['id' => $id]);
-                foreach ($data[$field] as $gr)
-                    $this->db->query('INSERT INTO `' . $fields[$field]['targetTable'] . '` (id, group_id) VALUES ("' . $id . '", "' . $gr . '")');
-                continue;
-            }
-            if ($fields[$field]['type'] == 'multiImage') {
-                if (!empty($images['extImages'][$field]))
-                    foreach ($images['extImages'][$field] as $extImage)
-                        $this->db->query('INSERT INTO `' . $fields[$field]['targetTable'] . '` (group_id, name) VALUES ("' . $id . '", "' . $extImage . '")');
-                continue;
-            }
             $set .= "`$field` = :$field,";
             $fieldSql .= "`$field`,";
             $values .= ":$field,";
@@ -150,18 +147,32 @@ class Admin extends Model
         $values = rtrim($values, ',');
         $fieldSql = rtrim($fieldSql, ',');
         if ($id)
-            $sql = 'UPDATE `' . $table . '` SET ' . $set . ' WHERE id = ' . $id;
+            $sql = 'UPDATE ' . $table . ' SET ' . $set . ' WHERE id = ' . $id;
         else
-            $sql = 'INSERT INTO `' . $table . '` (' . $fieldSql . ') VALUES (' . $values . ')';
-        if ($this->db->query($sql, $params))
-            return ($id ?: $this->db->lastInsertId());
-        else
+            $sql = 'INSERT INTO ' . $table . ' (' . $fieldSql . ') VALUES (' . $values . ')';
+        if ($this->db->query($sql, $params)) {
+            if (!isset($id))
+                $id = $this->db->lastInsertId();
+            foreach ($fieldNames as $field) {
+                if ($fields[$field]['type'] == 'multiselect') {
+                    $this->db->query('DELETE FROM ' . $fields[$field]['targetTable'] . ' WHERE id = :id', ['id' => $id]);
+                    foreach ($data[$field] as $gr)
+                        $this->db->query('INSERT INTO ' . $fields[$field]['targetTable'] . ' (id, group_id) VALUES ("' . $id . '", "' . $gr . '")');
+                }
+                if ($fields[$field]['type'] == 'multiImage') {
+                    if (!empty($images['extImages'][$field]))
+                        foreach ($images['extImages'][$field] as $extImage)
+                            $this->db->query('INSERT INTO ' . $fields[$field]['targetTable'] . ' (group_id, name) VALUES ("' . $id . '", "' . $extImage . '")');
+                }
+            }
+            return $id;
+        } else
             return null;
     }
 
     public function deleteRow(string $table, int $id): void
     {
-        $this->db->query("DELETE FROM `$table` WHERE id = :id", ['id' => $id]);
+        $this->db->query("DELETE FROM $table WHERE id = :id", ['id' => $id]);
     }
 
     public function authorization(string $login, string $password): array
