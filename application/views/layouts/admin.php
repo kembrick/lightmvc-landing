@@ -6,7 +6,8 @@
     <title><?= $this->title ?></title>
     <meta property="og:image" content="/public/img/logo/logo.png">
     <link rel="stylesheet" href="/public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/css/chosen.css">
+    <link rel="stylesheet" href="/public/css/select2.min.css">
+    <link rel="stylesheet" href="/public/css/select2-bootstrap-5-theme.css">
     <link rel="stylesheet" href="<?= $this->adminDir ?>css/datatables.min.css">
     <link rel="stylesheet" href="<?= $this->adminDir ?>css/main.css">
     <link rel="shortcut icon" href="/public/img/ico/shortcut.png">
@@ -73,8 +74,7 @@
     </script>
     <script src="/public/js/bootstrap.min.js"></script>
     <script src="/public/js/jquery.min.js"></script>
-    <script src="/public/js/jquery-ui.min.js"></script>
-    <script src="/public/js/chosen.jquery.min.js"></script>
+    <script src="/public/js/select2.min.js"></script>
     <script src="<?= $this->adminDir ?>js/datatables.min.js"></script>
     <script src="<?= $this->adminDir ?>tinymce/tinymce.min.js"></script>
     <script src="<?= $this->adminDir ?>js/app.min.js"></script>

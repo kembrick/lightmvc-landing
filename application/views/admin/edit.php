@@ -45,7 +45,7 @@ foreach ($this->data['configEdit']['fields'] as $key => $field) {
             case 'select':
             case 'multiselect':
                 ?>
-                <select id="<?= $key ?>" class="form-select chosen-select" name="<?= $key ?><?= $field['type'] == 'multiselect' ? '[]' : '' ?>" <?= $field['type'] == 'multiselect' ? 'multiple' : '' ?> data-placeholder="Выберите из списка...">
+                <select class="form-select" id="<?= $key ?>" data-placeholder="Выберите из списка..." <?= $field['type'] == 'multiselect' ? 'name="'. $key .'[]" multiple' : 'name="' .$key . '"' ?>>
                     <option value="0">Не задано</option>
                     <?php foreach ($this->data['dataSelect'][$key] as $s) { ?>
                         <option value="<?= $s['id'] ?>"

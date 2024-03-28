@@ -1,6 +1,8 @@
 $(function() {
 
-    $(".chosen-select").chosen();
+    $('.form-select').select2({
+        theme: 'bootstrap-5'
+    });
 
     let default_options = {
         "order": [],

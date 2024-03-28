@@ -53,7 +53,7 @@ unset($_SESSION['msg']);
                         case 'image':
                             if ($row[$key]) {
                             ?>
-                                <img src="<?= $img_path . $row[$key] ?>-1.webp" width="100">
+                                <img src="<?= $img_path . $row[$key] ?>-1.webp" width="100" alt="">
                             <?php
                             }
                             break;
