@@ -162,31 +162,36 @@ return [
         ]
     ],
 
-    'demo' => [
-        'navigation' => 'Демонстрация',
+    'demo1' => [
+        'navigation' => 'Демо (группировка)',
         'table' => 'front_demo',
         'icon' => 'sliders',
         'view' => [
             'fields' => [
-                'name' => [
+                'MIN(front_demo.name)' => [
                     'title' => 'Название'
                 ],
-                'pagename' => [
+                'MIN(front_demo.pagename)' => [
                     'title' => 'ЧПУ'
                 ],
-                'img' => [
+                'MIN(front_demo.img)' => [
                     'title' => 'Изображение',
                     'type'  => 'image',
                 ],
-                'dt' => [
+                'MIN(dt)' => [
                     'title' => 'Дата',
                     'type'  => 'date',
                 ],
-                'visible' => [
+                'MIN(visible)' => [
                     'title' => 'Выводить',
                     'type'  => 'checkbox',
                 ],
+                'GROUP_CONCAT(g.name SEPARATOR " | ")' => [  // перечисление категорий
+                    'title' => 'Категории',
+                ],
             ],
+            'join' => 'LEFT JOIN front_demo_groups ON front_demo_groups.id = front_demo.id LEFT JOIN front_settings g ON g.id = front_demo_groups.group_id',
+            'group' => 'front_demo.id',
         ],
         'edit' => [
             'fields' => [
@@ -242,6 +247,75 @@ return [
                     'title' => 'Выводить',
                     'type' => 'checkbox',
                     'default' => '1'
+                ],
+            ],
+        ]
+    ],
+
+    'demo2' => [
+        'navigation' => 'Демо (дерево)',
+        'table' => 'front_demo',
+        'icon' => 'tree',
+        'view' => [
+            'fields' => [
+                'name' => ['title' => 'Название'],
+            ],
+            'tree' => true,
+        ],
+        'edit' => [
+            'fields' => [
+                'name' => [
+                    'title' => 'Название',
+                    'translit' => 'pagename', // автоматическое заполнение указанного текстового поля транслитом, если в нем пусто
+                ],
+                'parent_id' => [
+                    'title' => 'Родительская категория',
+                    'type' => 'select',
+                    'targetTable' => 'front_demo',
+                    'selectSQL' => [
+                        'table' => 'front_demo',
+                        'fields' => ['id', 'name'],
+                        'where' => 'parent_id = 0', // Выбрать категории верхнего уровня
+                        'excludeId' => true, // Исключить id текущей записи из селекта
+                        'order' => 'name',
+                    ],
+                ],
+            ],
+        ]
+    ],
+
+
+    'demo3' => [
+        'navigation' => 'Демо (джойн)',
+        'table' => 'front_demo',
+        'icon' => 'toggle-off',
+        'view' => [
+            'fields' => [
+                'front_demo_name' => [
+                    'title' => 'Название',
+                    // заполняется, если в другой таблице есть поле с этим же названием, индекс поля становится его алиасом
+                    'column' => 'front_demo.name'
+                ],
+                'category_name' => [
+                    'title' => 'Категория',
+                    'column' => 'front_settings.name'
+                ],
+            ],
+            'join' => 'LEFT JOIN front_settings ON front_settings.id = cat_id',
+        ],
+        'edit' => [
+            'fields' => [
+                'name' => [
+                    'title' => 'Название',
+                ],
+                'cat_id' => [
+                    'title' => 'Товарная категория',
+                    'type' => 'select',
+                    'selectSQL' => [
+                        'table' => 'front_settings',
+                        'fields' => ['id', 'name'],
+                        'order' => 'name',
+                    ],
                 ],
             ],
         ]

@@ -34,11 +34,11 @@ class Admin extends Model
                 $fieldList = $fieldParentList = '';
             $sql = "WITH RECURSIVE tree_view AS (
                         SELECT id, parent_id, 0 AS level, CAST(id AS CHAR(50)) AS order_sequence, $mainField $fieldList
-                        FROM catalog_groups
+                        FROM {$this->config[$section]['table']}
                         WHERE parent_id = 0
                     UNION ALL
                         SELECT parent.id, parent.parent_id, level + 1 AS level, CONCAT(order_sequence , '_' , parent.id) AS order_sequence, parent.$mainField $fieldParentList
-                        FROM catalog_groups parent
+                        FROM {$this->config[$section]['table']} parent
                         JOIN tree_view tv ON parent.parent_id = tv.id
                     )
                     SELECT id, CONCAT(LEFT('└───────────────', level), $mainField) AS $mainField $fieldList
