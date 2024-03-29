@@ -10,6 +10,8 @@
 </head>
 <body>
 <?= $this->content ?>
+<a onclick="topFunction()" id="topBtn" class="btn btn-primary btn-lg back-to-top" title="Наверх"><div></div></a>
 <script src="/public/js/bootstrap.min.js"></script>
+<script src="/public/js/main.min.js"></script>
 </body>
 </html>

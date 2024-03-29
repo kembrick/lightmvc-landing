@@ -1,43 +1,19 @@
-$(document).ready(function () {
+// Get the button:
+let mybutton = document.getElementById("topBtn");
 
-    $('.scrollto').click(function () {
-        $('body,html').animate({
-            scrollTop:$('#' + $(this).data('value')).offset().top - 76
-        }, 1000)
-    });
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
 
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 150) {
-            $('#back-to-top').fadeIn();
-        } else {
-            $('#back-to-top').fadeOut();
-        }
-    });
-    $('#back-to-top').click(function () {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 200);
-        return false;
-    });
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
 
-
-    // Дропдаун-меню при наведении курсора
-    $(".dropdown").hover(
-        function () {
-            $('>.dropdown-menu', this).stop(true, true).show();
-            $(this).addClass('open');
-        },
-        function () {
-            $('>.dropdown-menu', this).stop(true, true).hide();
-            $(this).removeClass('open');
-        }
-    );
-
-    // Hamburger button changer
-    document.addEventListener('click',function(e) {
-        if (e.target.classList.contains('hamburger-toggle'))
-            e.target.children[0].classList.toggle('active');
-    })
-
-
-});
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+} 
