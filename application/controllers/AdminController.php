@@ -48,11 +48,12 @@ class AdminController extends Controller
             $this->view->error = 'Вход заблокирован на непродолжительное время из-за ввода неверных данных.';
             $this->view->locked = true;
         } elseif (!empty($_POST)) {
-            $login = trim($_POST['login']);
-            $password = trim($_POST['password']);
+            $login = filter_var(trim($_POST['login']), FILTER_SANITIZE_SPECIAL_CHARS);
+            $password = filter_var(trim($_POST['password']), FILTER_SANITIZE_SPECIAL_CHARS);
             $loginResult = $this->model->authorization($login, $password);
             if ($loginResult['isSuccess']) {
-                $this->saveAuthorization($loginResult['data']['id']);
+                if ($_POST['remember'])
+                    $this->saveAuthorization($loginResult['data']['id']);
                 header('Location: /' . $this->view->baseUrl);
                 exit;
             } else {

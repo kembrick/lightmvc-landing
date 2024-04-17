@@ -32,26 +32,22 @@ class Db {
 
     public function row($sql, $params = [])
     {
-        $result = $this->query($sql, $params);
-        return $result->fetchAll(PDO::FETCH_ASSOC);
+        return $this->query($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function fullColumn($sql, $params = [])
     {
-        $result = $this->query($sql, $params);
-        return $result->fetchAll(PDO::FETCH_COLUMN);
+        return $this->query($sql, $params)->fetchAll(PDO::FETCH_COLUMN);
     }
 
     public function pairColumn($sql, $params = [])
     {
-        $result = $this->query($sql, $params);
-        return $result->fetchAll(PDO::FETCH_KEY_PAIR);
+        return $this->query($sql, $params)->fetchAll(PDO::FETCH_KEY_PAIR);
     }
 
 	public function column($sql, $params = [])
     {
-		$result = $this->query($sql, $params);
-		return $result->fetchColumn();
+		return $this->query($sql, $params)->fetchColumn();
     }
 
     public function fetchUnique($sql, $params = [])
@@ -66,8 +62,7 @@ class Db {
     
     public function exists($sql, $params = []): bool
     {
-        $result = $this->query($sql, $params);
-        if ($result->rowCount() > 0)
+        if ($this->query($sql, $params)->rowCount() > 0)
             return true;
         else
             return false;
