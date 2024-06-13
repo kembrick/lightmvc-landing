@@ -96,8 +96,8 @@ ALTER TABLE `front_demo`
     ADD PRIMARY KEY (`id`);
 ALTER TABLE `front_demo`
     MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT;
-ALTER TABLE `front_demo` ADD `parant_id` INT UNSIGNED NOT NULL DEFAULT '0' AFTER `radio`;
-ALTER TABLE `front_demo` ADD INDEX(`parant_id`);
+ALTER TABLE `front_demo` ADD `parent_id` INT UNSIGNED NOT NULL DEFAULT '0' AFTER `radio`;
+ALTER TABLE `front_demo` ADD INDEX(`parent_id`);
 ALTER TABLE `front_demo` ADD `cat_id` INT NULL AFTER `parent_id`;
 ALTER TABLE `front_demo` ADD INDEX(`cat_id`);
 
